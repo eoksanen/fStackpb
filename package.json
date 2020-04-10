@@ -1,0 +1,20 @@
+{
+  "name": "fspbk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"\"\u001b[Dtest\"",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "D:/code/gitHub/fspbk/.git/"
+  },
+  "author": "eo",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
