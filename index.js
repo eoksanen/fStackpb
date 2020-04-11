@@ -1,8 +1,22 @@
 
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
-
 app.use(express.json())
+app.use(morgan(function (tokens, req, res) {
+  return [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    tokens.res(req, res, 'content-length'), '-',
+    tokens['response-time'](req, res), 'ms',
+    tokens.req(req, res, 'content-length'), '-',
+
+  ].join(' ')
+}))
+
+
+
 
 let persons = [
     {
@@ -24,7 +38,13 @@ let persons = [
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 4
+    },    
+    {
+      "name": "Jiihu",
+      "number": "39-23-6456722",
+      "id": 5
     }
+
   ]
 
   app.get('/', (req, res) => {
@@ -68,6 +88,9 @@ const generateId = () => {
 
   app.post('/api/persons', (req, res) => {
     const body = req.body
+    console.log(persons.map(p => p.name).indexOf(body.name))
+    console.log(persons.map(p => p.name.indexOf(body.name)))
+
     if (!body.name || !body.number){
       
       return res.status(400).json({
@@ -75,12 +98,7 @@ const generateId = () => {
       })
     }
     
-    else if (persons.map(p => {
-          
-      console.log(p.name.indexOf(body.name))
-
-      return p.name.indexOf(body.name) > 1
-    })){
+    else if (persons.map(p => p.name).indexOf(body.name) >= 0 ){
 
         return res.status(400).json({
           error: "name must be unique"
@@ -95,6 +113,7 @@ const generateId = () => {
     }
     persons = persons.concat(person)
     res.json(person)
+    
     }
   })
 
