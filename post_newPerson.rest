@@ -1,0 +1,4 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{"name":"Kiwi Code","number":"66-44-3322555", "addr": "kiivi7a"}
